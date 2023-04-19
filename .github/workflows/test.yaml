@@ -1,0 +1,54 @@
+name: Test
+
+on:
+  schedule:
+    - cron: '45 10 * * *'
+
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  go-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          check-latest: true
+      - name: Go coverage
+        run: go test -covermode=atomic -coverprofile coverage.out ./...
+      - name: Publish coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.out
+          flags: go
+          verbose: true
+          fail_ci_if_error: true
+
+  opa-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          check-latest: true
+      - name: Setup OPA
+        uses: open-policy-agent/setup-opa@v2
+        with:
+          version: latest
+      - name: Run OPA Tests
+        run: opa test testdata/authz/*.rego -v
+      - name: OPA Coverage
+        run: opa test testdata/authz/*.rego -v --coverage | go run main.go > coverage.json
+      - name: Publish coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.json
+          flags: opa
+          verbose: true
+          fail_ci_if_error: true
