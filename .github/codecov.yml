@@ -1,0 +1,18 @@
+coverage:
+  precision: 2
+  round: down
+  range: "0...100"
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 100% # do not fail even if the coverage dropped to zero
+        base: auto
+    patch:
+      default:
+        target: auto
+        threshold: 100% # do not fail even if the coverage dropped to zero
+        base: auto
+comment:
+  layout: "diff, files"
+  behavior: once # do not recreate a comment if it was deleted

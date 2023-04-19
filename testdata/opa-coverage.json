@@ -1,0 +1,46 @@
+{
+  "files": {
+    "/authz/authz.rego": {
+      "covered": [
+        {
+          "start": {
+            "row": 4
+          },
+          "end": {
+            "row": 5
+          }
+        }
+      ],
+      "not_covered": [
+        {
+          "start": {
+            "row": 8
+          },
+          "end": {
+            "row": 9
+          }
+        }
+      ],
+      "covered_lines": 2,
+      "not_covered_lines": 2,
+      "coverage": 50
+    },
+    "/authz/authz_test.rego": {
+      "covered": [
+        {
+          "start": {
+            "row": 4
+          },
+          "end": {
+            "row": 5
+          }
+        }
+      ],
+      "covered_lines": 2,
+      "coverage": 100
+    }
+  },
+  "covered_lines": 4,
+  "not_covered_lines": 2,
+  "coverage": 66.65
+}
