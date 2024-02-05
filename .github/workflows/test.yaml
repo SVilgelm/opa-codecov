@@ -21,7 +21,7 @@ jobs:
       - name: Go coverage
         run: go test -covermode=atomic -coverprofile coverage.out ./...
       - name: Publish coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.out
@@ -45,7 +45,7 @@ jobs:
       - name: OPA Coverage
         run: opa test testdata/authz/*.rego -v --coverage | go run main.go > coverage.json
       - name: Publish coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.json
